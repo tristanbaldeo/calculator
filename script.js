@@ -65,7 +65,12 @@ sign.addEventListener('click', (e) => {
 });
 
 // Function to implement percent change
-
+percent.addEventListener('click', (e) => {
+    displayValue = displayValue / 100;
+    if (displayValue != 0) {
+        display.innerText = displayValue;
+    }
+});
 
 // Function to implement decimal
 
