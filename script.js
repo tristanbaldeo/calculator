@@ -41,6 +41,7 @@ zero.addEventListener('click', (e) => {
 
 // Function to implement clear display
 clear.addEventListener('click', (e) => {
+    display.style.fontSize = '56px';
     if (displayValue != 0) {
         displayValue = 0
         display.innerText = 0;
@@ -66,11 +67,25 @@ sign.addEventListener('click', (e) => {
 
 // Function to implement percent change
 percent.addEventListener('click', (e) => {
-    displayValue = displayValue / 100;
-    if (displayValue != 0) {
-        display.innerText = displayValue;
-    }
+    let value = (parseFloat(displayValue) / 100);
+    displayValue = roundNumber(value);
+
+    display.innerText = displayValue;
+    if (displayValue.length > 10) {
+        display.style.fontSize = '32px';
+    } else if (displayValue == 0) {
+        display.innerText != displayValue;
+    } else {
+        display.style.fontSize = '56px';
+    } 
 });
+
+// Function to round number
+function roundNumber(value) {
+    let valueStr = value.toExponential(12);
+    valueStr = parseFloat(valueStr).toString();
+    return valueStr;
+}
 
 // Function to implement decimal
 
