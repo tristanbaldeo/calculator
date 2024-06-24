@@ -38,7 +38,13 @@ zero.addEventListener('click', (e) => {
 });
 
 // Function to implement clear display
-
+clear.addEventListener('click', (e) => {
+    const value = e.target.value;
+    if (displayValue != 0) {
+        displayValue = 0
+        display.innerText = 0;
+    }
+});
 
 // Function to implement sign change (+/-)
 
