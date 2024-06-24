@@ -51,7 +51,7 @@ clear.addEventListener('click', (e) => {
 
 // Function to implement sign change (+/-)
 sign.addEventListener('click', (e) => {
-    if (positive == true) {
+    if (positive == true && displayValue != 0) {
         displayValue = '-' + displayValue;
         display.innerText = displayValue;
         negative = true;
