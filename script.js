@@ -1,4 +1,6 @@
 let displayValue = 0;
+let positive = true;
+let negative = false;
 const display = document.getElementById('display');
 const buttons = document.querySelectorAll('.button');
 const numbers = document.querySelectorAll('.number');
@@ -39,15 +41,28 @@ zero.addEventListener('click', (e) => {
 
 // Function to implement clear display
 clear.addEventListener('click', (e) => {
-    const value = e.target.value;
     if (displayValue != 0) {
         displayValue = 0
         display.innerText = 0;
+        negative = false;
+        positive = true;
     }
 });
 
 // Function to implement sign change (+/-)
-
+sign.addEventListener('click', (e) => {
+    if (positive == true) {
+        displayValue = '-' + displayValue;
+        display.innerText = displayValue;
+        negative = true;
+        positive = false;
+    } else {
+        displayValue = displayValue.substring(1);
+        display.innerText = displayValue;
+        negative = false;
+        positive = true;
+    }
+});
 
 // Function to implement percent change
 
