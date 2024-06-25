@@ -4,8 +4,8 @@ let secondNum = '';
 let op = '';
 let result = '';
 let positive = true;
+
 const display = document.getElementById('display');
-const buttons = document.querySelectorAll('.button');
 const numbers = document.querySelectorAll('.number');
 const operators = document.querySelectorAll('.operator');
 const clear = document.getElementById('clear');
@@ -16,34 +16,29 @@ const decimal = document.getElementById('decimal');
 const equal = document.getElementById('equal');
 
 // Function implement numbers into display and update display
+function updateDisplay(value) {
+    if (displayValue === 0) {
+        displayValue = value;
+    } else if (displayValue.length < 10) {
+        displayValue += value;
+    }
+    display.innerText = displayValue;
+}
+
 numbers.forEach(number => {
     number.addEventListener('click', (e) => {
         const value = e.target.value;
-        if (displayValue === 0) {
-            displayValue = value;
-        } else if (displayValue.length >= 10) {
-            displayValue != value;
-        } else {
-            displayValue += value;
-        }
-        display.innerText = displayValue;
+        updateDisplay(value);
     });
 });
 
 zero.addEventListener('click', (e) => {
     const value = e.target.value;
-    if (displayValue === 0) {
-        displayValue = value;
-    } else if (displayValue.length >= 10) {
-        displayValue != value;
-    } else {
-        displayValue += value;
-    }
-    display.innerText = displayValue;
+    updateDisplay(value);
 });
 
 // Function to implement clear display
-clear.addEventListener('click', (e) => {
+clear.addEventListener('click', () => {
     display.style.fontSize = '56px';
     if (displayValue !== 0) {
         displayValue = 0
@@ -56,7 +51,7 @@ clear.addEventListener('click', (e) => {
 });
 
 // Function to implement sign change (+/-)
-sign.addEventListener('click', (e) => {
+sign.addEventListener('click', () => {
     if (positive == true && displayValue != 0) {
         displayValue = '-' + displayValue;
         display.innerText = displayValue;
@@ -69,11 +64,14 @@ sign.addEventListener('click', (e) => {
 });
 
 // Function to implement percent change
-percent.addEventListener('click', (e) => {
+percent.addEventListener('click', () => {
     let value = (parseFloat(displayValue) / 100);
     displayValue = roundNumber(value);
-
     display.innerText = displayValue;
+    adjustFontSize();
+});
+
+function adjustFontSize() {
     if (displayValue.length > 10) {
         display.style.fontSize = '32px';
     } else if (displayValue == 0) {
@@ -81,7 +79,7 @@ percent.addEventListener('click', (e) => {
     } else {
         display.style.fontSize = '56px';
     } 
-});
+}
 
 // Function to round number
 function roundNumber(value) {
@@ -102,51 +100,41 @@ decimal.addEventListener('click', (e) => {
 });
 
 // Function to implement operators
+function firstOperation() {
+    firstNum = displayValue;
+    displayValue = '';
+}
+
+function solve() {
+    secondNum = displayValue;
+    operate();
+    displayValue = result;
+    display.innerText = result;
+    firstNum = result;
+    secondNum = '';
+}
+
 operators.forEach(operator => {
-    operator.addEventListener('click', (e) => {
-        if (operator.value === '+' && firstNum === '') {
-            firstNum = displayValue;
-            displayValue = '';
+    operator.addEventListener('click', () => {
+        if (firstNum === '') {
+            firstOperation();
             op = operator.value;
-        } else if (operator.value === '-' && firstNum === '') {
-            firstNum = displayValue;
-            displayValue = '';
-            op = operator.value;
-            roundNumber();
-        } else if (operator.value === '/' && firstNum === '') {
-            firstNum = displayValue;
-            displayValue = '';
-            op = operator.value;
-            roundNumber();
-        } else if (operator.value === '*' && firstNum === '') {
-            firstNum = displayValue;
-            displayValue = '';
-            op = operator.value;
-            roundNumber();
         } else if (firstNum != '') {
-            secondNum = displayValue;
-            operate(firstNum, secondNum, op)
-            displayValue = result;
-            display.innerText = result;
-            firstNum = result;
-            secondNum = '';
-            displayValue = '';
+            solve()
             op = operator.value;
+            displayValue = '';
             roundNumber();
+            adjustFontSize();
         }
     });
 });
 
 // Function to implement equals
 equal.addEventListener('click', (e) => {
-    secondNum = displayValue;
-    operate(firstNum, secondNum, op) 
-    displayValue = result;
-    display.innerText = result;
-    firstNum = result;
-    secondNum = '';
+    solve();
     op = '';
     roundNumber();
+    adjustFontSize();
 });
 
 // Function that operates on two numbers and calculates operators
