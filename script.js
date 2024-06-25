@@ -74,8 +74,6 @@ percent.addEventListener('click', () => {
 function adjustFontSize() {
     if (displayValue.length > 10) {
         display.style.fontSize = '32px';
-    } else if (displayValue == 0) {
-        display.innerText != displayValue;
     } else {
         display.style.fontSize = '56px';
     } 
@@ -102,12 +100,14 @@ decimal.addEventListener('click', (e) => {
 // Function to implement operators
 function firstOperation() {
     firstNum = displayValue;
+    adjustFontSize();
     displayValue = '';
 }
 
 function solve() {
     secondNum = displayValue;
     operate();
+    adjustFontSize();
     displayValue = result;
     display.innerText = result;
     firstNum = result;
@@ -123,17 +123,14 @@ operators.forEach(operator => {
             solve()
             op = operator.value;
             displayValue = '';
-            roundNumber();
-            adjustFontSize();
         }
     });
 });
 
 // Function to implement equals
-equal.addEventListener('click', (e) => {
+equal.addEventListener('click', () => {
     solve();
     op = '';
-    roundNumber();
     adjustFontSize();
 });
 
