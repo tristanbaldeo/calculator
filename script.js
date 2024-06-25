@@ -2,6 +2,7 @@ let displayValue = 0;
 let firstNum = '';
 let secondNum = '';
 let op = '';
+let result = '';
 let positive = true;
 const display = document.getElementById('display');
 const buttons = document.querySelectorAll('.button');
@@ -105,52 +106,62 @@ operators.forEach(operator => {
     operator.addEventListener('click', (e) => {
         if (operator.value === '+' && firstNum === '') {
             firstNum = displayValue;
-            op == '+';
             displayValue = '';
+            op = operator.value;
         } else if (operator.value === '-' && firstNum === '') {
             firstNum = displayValue;
-            op == '-';
             displayValue = '';
+            op = operator.value;
+            roundNumber();
         } else if (operator.value === '/' && firstNum === '') {
             firstNum = displayValue;
-            op == '/';
             displayValue = '';
+            op = operator.value;
+            roundNumber();
         } else if (operator.value === '*' && firstNum === '') {
             firstNum = displayValue;
-            op == '*';
             displayValue = '';
+            op = operator.value;
+            roundNumber();
+        } else if (firstNum != '') {
+            secondNum = displayValue;
+            operate(firstNum, secondNum, op)
+            displayValue = result;
+            display.innerText = result;
+            firstNum = result;
+            secondNum = '';
+            displayValue = '';
+            op = operator.value;
+            roundNumber();
         }
     });
 });
 
 // Function to implement equals
-
+equal.addEventListener('click', (e) => {
+    secondNum = displayValue;
+    operate(firstNum, secondNum, op) 
+    displayValue = result;
+    display.innerText = result;
+    firstNum = result;
+    secondNum = '';
+    op = '';
+    roundNumber();
+});
 
 // Function that operates on two numbers and calculates operators
-
-
-
-
-// operators.forEach(operator => {
-//     operator.addEventListener('click', (e) => {
-//         let x = displayValue;
-//         let y = 5;
-//         if (operator.value === '+') {
-//             result = parseFloat(x) + parseFloat(y);
-//             console.log(result)
-//         } else if (operator.value === '-') {
-//             result = x - y;
-//             console.log(result)
-//         } else if (operator.value === '/') {
-//             if (y === 0) {
-//                 console.log('Error');
-//             } else {
-//                 result = x / y;
-//                 console.log(result)
-//             }
-//         } else if (operator.value === '*') {
-//             result = x * y;
-//             console.log(result)
-//         }
-//     });
-// });
+function operate() {
+    if (op === '+') {
+        result = parseFloat(firstNum) + parseFloat(secondNum);
+    } else if (op === '-') {
+        result = firstNum - secondNum;
+    } else if (op === '/') {
+        if (secondNum === 0) {
+            result = 'Error';
+        } else {
+            result = firstNum / secondNum;
+        }
+    } else if (op === '*') {
+        result = firstNum * secondNum;
+    }
+}
