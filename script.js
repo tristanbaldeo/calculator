@@ -1,6 +1,8 @@
 let displayValue = 0;
+let firstNum = '';
+let secondNum = '';
+let op = '';
 let positive = true;
-let negative = false;
 const display = document.getElementById('display');
 const buttons = document.querySelectorAll('.button');
 const numbers = document.querySelectorAll('.number');
@@ -45,8 +47,10 @@ clear.addEventListener('click', (e) => {
     if (displayValue !== 0) {
         displayValue = 0
         display.innerText = 0;
-        negative = false;
         positive = true;
+        firstNum = '';
+        secondNum = '';
+        op = '';
     }
 });
 
@@ -55,12 +59,10 @@ sign.addEventListener('click', (e) => {
     if (positive == true && displayValue != 0) {
         displayValue = '-' + displayValue;
         display.innerText = displayValue;
-        negative = true;
         positive = false;
-    } else {
+    } else if (positive == false && displayValue != 0) {
         displayValue = displayValue.substring(1);
         display.innerText = displayValue;
-        negative = false;
         positive = true;
     }
 });
@@ -99,9 +101,56 @@ decimal.addEventListener('click', (e) => {
 });
 
 // Function to implement operators
-
+operators.forEach(operator => {
+    operator.addEventListener('click', (e) => {
+        if (operator.value === '+' && firstNum === '') {
+            firstNum = displayValue;
+            op == '+';
+            displayValue = '';
+        } else if (operator.value === '-' && firstNum === '') {
+            firstNum = displayValue;
+            op == '-';
+            displayValue = '';
+        } else if (operator.value === '/' && firstNum === '') {
+            firstNum = displayValue;
+            op == '/';
+            displayValue = '';
+        } else if (operator.value === '*' && firstNum === '') {
+            firstNum = displayValue;
+            op == '*';
+            displayValue = '';
+        }
+    });
+});
 
 // Function to implement equals
 
 
 // Function that operates on two numbers and calculates operators
+
+
+
+
+// operators.forEach(operator => {
+//     operator.addEventListener('click', (e) => {
+//         let x = displayValue;
+//         let y = 5;
+//         if (operator.value === '+') {
+//             result = parseFloat(x) + parseFloat(y);
+//             console.log(result)
+//         } else if (operator.value === '-') {
+//             result = x - y;
+//             console.log(result)
+//         } else if (operator.value === '/') {
+//             if (y === 0) {
+//                 console.log('Error');
+//             } else {
+//                 result = x / y;
+//                 console.log(result)
+//             }
+//         } else if (operator.value === '*') {
+//             result = x * y;
+//             console.log(result)
+//         }
+//     });
+// });
