@@ -30,7 +30,7 @@ numbers.forEach(number => {
 zero.addEventListener('click', (e) => {
     const value = e.target.value;
     if (displayValue === 0) {
-        displayValue != value;
+        displayValue = value;
     } else if (displayValue.length >= 10) {
         displayValue != value;
     } else {
@@ -42,7 +42,7 @@ zero.addEventListener('click', (e) => {
 // Function to implement clear display
 clear.addEventListener('click', (e) => {
     display.style.fontSize = '56px';
-    if (displayValue != 0) {
+    if (displayValue !== 0) {
         displayValue = 0
         display.innerText = 0;
         negative = false;
@@ -88,7 +88,15 @@ function roundNumber(value) {
 }
 
 // Function to implement decimal
-
+decimal.addEventListener('click', (e) => {
+    const value = e.target.value;
+    if (displayValue.includes('.')) {
+        displayValue != value
+    } else {
+        displayValue += value;
+        display.innerText = displayValue;
+    }
+});
 
 // Function to implement operators
 
