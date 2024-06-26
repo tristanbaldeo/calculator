@@ -108,9 +108,9 @@ function solve() {
     secondNum = displayValue;
     operate();
     adjustFontSize();
-    displayValue = result;
-    display.innerText = result;
-    firstNum = result;
+    displayValue = result.toString();;
+    display.innerText = displayValue;
+    firstNum = result.toString();;
     secondNum = '';
 }
 
@@ -141,7 +141,7 @@ function operate() {
     } else if (op === '-') {
         result = firstNum - secondNum;
     } else if (op === '/') {
-        if (secondNum === 0) {
+        if (parseFloat(secondNum) === 0) {
             result = 'Error';
         } else {
             result = firstNum / secondNum;
